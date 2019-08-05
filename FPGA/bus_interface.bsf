@@ -1,0 +1,260 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 328 448)
+	(text "bus_interface" (rect 5 0 59 12)(font "Arial" ))
+	(text "inst" (rect 8 416 20 428)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk_in" (rect 0 0 22 12)(font "Arial" ))
+		(text "clk_in" (rect 21 27 43 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "bus_comm_data_in[7..0]" (rect 0 0 100 12)(font "Arial" ))
+		(text "bus_comm_data_in[7..0]" (rect 21 43 121 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "bus_comm_in_ready" (rect 0 0 87 12)(font "Arial" ))
+		(text "bus_comm_in_ready" (rect 21 59 108 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "bus_comm_request_new" (rect 0 0 102 12)(font "Arial" ))
+		(text "bus_comm_request_new" (rect 21 75 123 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 1))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "bus_comm_active" (rect 0 0 75 12)(font "Arial" ))
+		(text "bus_comm_active" (rect 21 91 96 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "adcclk_in" (rect 0 0 36 12)(font "Arial" ))
+		(text "adcclk_in" (rect 21 107 57 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 1))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "ADC_OTR" (rect 0 0 49 12)(font "Arial" ))
+		(text "ADC_OTR" (rect 21 123 70 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 1))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "DAC_OTR" (rect 0 0 49 12)(font "Arial" ))
+		(text "DAC_OTR" (rect 21 139 70 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144)(line_width 1))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "ADC_IN[11..0]" (rect 0 0 60 12)(font "Arial" ))
+		(text "ADC_IN[11..0]" (rect 21 155 81 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "keyb_1" (rect 0 0 29 12)(font "Arial" ))
+		(text "keyb_1" (rect 21 171 50 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 1))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "keyb_2" (rect 0 0 30 12)(font "Arial" ))
+		(text "keyb_2" (rect 21 187 51 199)(font "Arial" ))
+		(line (pt 0 192)(pt 16 192)(line_width 1))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "keyb_3" (rect 0 0 30 12)(font "Arial" ))
+		(text "keyb_3" (rect 21 203 51 215)(font "Arial" ))
+		(line (pt 0 208)(pt 16 208)(line_width 1))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "keyb_4" (rect 0 0 31 12)(font "Arial" ))
+		(text "keyb_4" (rect 21 219 52 231)(font "Arial" ))
+		(line (pt 0 224)(pt 16 224)(line_width 1))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "enc_sw" (rect 0 0 30 12)(font "Arial" ))
+		(text "enc_sw" (rect 21 235 51 247)(font "Arial" ))
+		(line (pt 0 240)(pt 16 240)(line_width 1))
+	)
+	(port
+		(pt 0 256)
+		(input)
+		(text "enc_a1" (rect 0 0 28 12)(font "Arial" ))
+		(text "enc_a1" (rect 21 251 49 263)(font "Arial" ))
+		(line (pt 0 256)(pt 16 256)(line_width 1))
+	)
+	(port
+		(pt 0 272)
+		(input)
+		(text "enc_a2" (rect 0 0 29 12)(font "Arial" ))
+		(text "enc_a2" (rect 21 267 50 279)(font "Arial" ))
+		(line (pt 0 272)(pt 16 272)(line_width 1))
+	)
+	(port
+		(pt 0 288)
+		(input)
+		(text "SPEC_I[15..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "SPEC_I[15..0]" (rect 21 283 78 295)(font "Arial" ))
+		(line (pt 0 288)(pt 16 288)(line_width 3))
+	)
+	(port
+		(pt 0 304)
+		(input)
+		(text "SPEC_Q[15..0]" (rect 0 0 62 12)(font "Arial" ))
+		(text "SPEC_Q[15..0]" (rect 21 299 83 311)(font "Arial" ))
+		(line (pt 0 304)(pt 16 304)(line_width 3))
+	)
+	(port
+		(pt 0 320)
+		(input)
+		(text "VOICE_I[15..0]" (rect 0 0 63 12)(font "Arial" ))
+		(text "VOICE_I[15..0]" (rect 21 315 84 327)(font "Arial" ))
+		(line (pt 0 320)(pt 16 320)(line_width 3))
+	)
+	(port
+		(pt 0 336)
+		(input)
+		(text "VOICE_Q[15..0]" (rect 0 0 68 12)(font "Arial" ))
+		(text "VOICE_Q[15..0]" (rect 21 331 89 343)(font "Arial" ))
+		(line (pt 0 336)(pt 16 336)(line_width 3))
+	)
+	(port
+		(pt 0 352)
+		(input)
+		(text "bus_stream_data_in[7..0]" (rect 0 0 102 12)(font "Arial" ))
+		(text "bus_stream_data_in[7..0]" (rect 21 347 123 359)(font "Arial" ))
+		(line (pt 0 352)(pt 16 352)(line_width 3))
+	)
+	(port
+		(pt 0 368)
+		(input)
+		(text "bus_stream_in_valid" (rect 0 0 83 12)(font "Arial" ))
+		(text "bus_stream_in_valid" (rect 21 363 104 375)(font "Arial" ))
+		(line (pt 0 368)(pt 16 368)(line_width 1))
+	)
+	(port
+		(pt 0 384)
+		(input)
+		(text "iq_clock" (rect 0 0 31 12)(font "Arial" ))
+		(text "iq_clock" (rect 21 379 52 391)(font "Arial" ))
+		(line (pt 0 384)(pt 16 384)(line_width 1))
+	)
+	(port
+		(pt 312 32)
+		(output)
+		(text "bus_comm_data_out[7..0]" (rect 0 0 106 12)(font "Arial" ))
+		(text "bus_comm_data_out[7..0]" (rect 185 27 291 39)(font "Arial" ))
+		(line (pt 312 32)(pt 296 32)(line_width 3))
+	)
+	(port
+		(pt 312 48)
+		(output)
+		(text "freq_out[21..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "freq_out[21..0]" (rect 234 43 291 55)(font "Arial" ))
+		(line (pt 312 48)(pt 296 48)(line_width 3))
+	)
+	(port
+		(pt 312 64)
+		(output)
+		(text "preamp_enable" (rect 0 0 61 12)(font "Arial" ))
+		(text "preamp_enable" (rect 230 59 291 71)(font "Arial" ))
+		(line (pt 312 64)(pt 296 64)(line_width 1))
+	)
+	(port
+		(pt 312 80)
+		(output)
+		(text "rx" (rect 0 0 8 12)(font "Arial" ))
+		(text "rx" (rect 283 75 291 87)(font "Arial" ))
+		(line (pt 312 80)(pt 296 80)(line_width 1))
+	)
+	(port
+		(pt 312 96)
+		(output)
+		(text "tx" (rect 0 0 7 12)(font "Arial" ))
+		(text "tx" (rect 284 91 291 103)(font "Arial" ))
+		(line (pt 312 96)(pt 296 96)(line_width 1))
+	)
+	(port
+		(pt 312 112)
+		(output)
+		(text "audio_clk_en" (rect 0 0 51 12)(font "Arial" ))
+		(text "audio_clk_en" (rect 240 107 291 119)(font "Arial" ))
+		(line (pt 312 112)(pt 296 112)(line_width 1))
+	)
+	(port
+		(pt 312 128)
+		(output)
+		(text "TX_I[15..0]" (rect 0 0 43 12)(font "Arial" ))
+		(text "TX_I[15..0]" (rect 248 123 291 135)(font "Arial" ))
+		(line (pt 312 128)(pt 296 128)(line_width 3))
+	)
+	(port
+		(pt 312 144)
+		(output)
+		(text "TX_Q[15..0]" (rect 0 0 48 12)(font "Arial" ))
+		(text "TX_Q[15..0]" (rect 243 139 291 151)(font "Arial" ))
+		(line (pt 312 144)(pt 296 144)(line_width 3))
+	)
+	(port
+		(pt 312 160)
+		(output)
+		(text "bus_stream_data_out[7..0]" (rect 0 0 108 12)(font "Arial" ))
+		(text "bus_stream_data_out[7..0]" (rect 183 155 291 167)(font "Arial" ))
+		(line (pt 312 160)(pt 296 160)(line_width 3))
+	)
+	(port
+		(pt 312 176)
+		(output)
+		(text "bus_stream_enabled" (rect 0 0 83 12)(font "Arial" ))
+		(text "bus_stream_enabled" (rect 208 171 291 183)(font "Arial" ))
+		(line (pt 312 176)(pt 296 176)(line_width 1))
+	)
+	(drawing
+		(rectangle (rect 16 16 296 416)(line_width 1))
+	)
+)

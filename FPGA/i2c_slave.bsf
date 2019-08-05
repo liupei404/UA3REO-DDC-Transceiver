@@ -1,0 +1,91 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 272 160)
+	(text "i2c_Slave" (rect 5 0 43 12)(font "Arial" ))
+	(text "inst" (rect 8 128 20 140)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "CLCK" (rect 0 0 27 12)(font "Arial" ))
+		(text "CLCK" (rect 21 27 48 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "SCL" (rect 0 0 18 12)(font "Arial" ))
+		(text "SCL" (rect 21 43 39 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "dataout[7..0]" (rect 0 0 48 12)(font "Arial" ))
+		(text "dataout[7..0]" (rect 21 59 69 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 256 48)
+		(output)
+		(text "datain[7..0]" (rect 0 0 42 12)(font "Arial" ))
+		(text "datain[7..0]" (rect 193 43 235 55)(font "Arial" ))
+		(line (pt 256 48)(pt 240 48)(line_width 3))
+	)
+	(port
+		(pt 256 64)
+		(output)
+		(text "datain_ready" (rect 0 0 51 12)(font "Arial" ))
+		(text "datain_ready" (rect 184 59 235 71)(font "Arial" ))
+		(line (pt 256 64)(pt 240 64)(line_width 1))
+	)
+	(port
+		(pt 256 80)
+		(output)
+		(text "master_request_new_byte" (rect 0 0 108 12)(font "Arial" ))
+		(text "master_request_new_byte" (rect 127 75 235 87)(font "Arial" ))
+		(line (pt 256 80)(pt 240 80)(line_width 1))
+	)
+	(port
+		(pt 256 96)
+		(output)
+		(text "active" (rect 0 0 23 12)(font "Arial" ))
+		(text "active" (rect 212 91 235 103)(font "Arial" ))
+		(line (pt 256 96)(pt 240 96)(line_width 1))
+	)
+	(port
+		(pt 256 32)
+		(bidir)
+		(text "SDA" (rect 0 0 21 12)(font "Arial" ))
+		(text "SDA" (rect 214 27 235 39)(font "Arial" ))
+		(line (pt 256 32)(pt 240 32)(line_width 1))
+	)
+	(parameter
+		"slaveaddress"
+		"1110010"
+		""
+		(type "PARAMETER_UNSIGNED_BIN")	)
+	(drawing
+		(rectangle (rect 16 16 240 128)(line_width 1))
+	)
+	(annotation_block (parameter)(rect 272 -64 372 16))
+)

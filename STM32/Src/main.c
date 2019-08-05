@@ -174,6 +174,36 @@ int main(void)
 	  WARNING: A bug fix is also needed in __HAL_RCC_GET_I2S_SOURCE()
 		Line 6131 stm32f4xx_hal_rcc_ex.h -> #define __HAL_RCC_GET_I2S_SOURCE() ((uint32_t)(READ_BIT(RCC->CFGR, RCC_CFGR_I2SSRC)) >> RCC_CFGR_I2SSRC_Pos)
 	*/
+	
+	/*
+	while(true)
+	{
+		i2c_begin(I2C_FPGA);
+		i2c_beginTransmission_u8(I2C_FPGA, B8(1110010)); //I2C_ADDRESS
+		i2c_write_u8(I2C_FPGA, 100);
+		uint8_t st = i2c_endTransmission(I2C_FPGA);
+		//sendToDebug_uint8(st,false);
+		//sendToDebug_flush();
+		
+		i2c_begin(I2C_FPGA);
+		i2c_requestFrom_ii(I2C_FPGA, B8(1110010), 3);
+		sendToDebug_uint8(i2c_read(I2C_FPGA),false);
+		sendToDebug_uint8(i2c_read(I2C_FPGA),false);
+		sendToDebug_uint8(i2c_read(I2C_FPGA),false);
+		sendToDebug_flush();
+		
+		sendToDebug_newline();
+		
+		HAL_IWDG_Refresh(&hiwdg);
+		
+		HAL_Delay(1000);
+	}
+	*/
+	
+	SPI_Bus_Buffer_TX[0]=1; //Q-M
+	SPI_Bus_Buffer_TX[1]=2; //Q-L
+	SPI_Bus_Buffer_TX[2]=4; //I-M
+	SPI_Bus_Buffer_TX[3]=8; //I-L
 	HAL_RTC_Init(&hrtc);
 	InitProfiler();
 	sendToDebug_str("\r\n");
@@ -182,7 +212,7 @@ int main(void)
 	LCD_Init();
 	if(!TRX.Calibrated)
 	{
-		Touch_Calibrate();
+		//Touch_Calibrate();
 		LCD_Init();
 		SaveSettings();
 	}
@@ -201,6 +231,7 @@ int main(void)
 	HAL_TIM_Base_Start(&htim7);
 	HAL_TIM_Base_Start_IT(&htim7);
 	TRX_RF_UNIT_UpdateState(false);
+	
 	sendToDebug_str("UA3REO Started\r\n\r\n");
 	TRX_inited = true;
   /* USER CODE END 2 */
@@ -442,8 +473,8 @@ static void MX_SPI1_Init(void)
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -996,21 +1027,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, FPGA_CLK_Pin|AD1_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, BUS_COMM_SDA_Pin|BUS_COMM_SCK_Pin|AD2_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(FPGA_SYNC_GPIO_Port, FPGA_SYNC_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, FPGA_BUS_D0_Pin|FPGA_BUS_D1_Pin|FPGA_BUS_D2_Pin|FPGA_BUS_D3_Pin 
-                          |FPGA_BUS_D4_Pin|FPGA_BUS_D5_Pin|FPGA_BUS_D6_Pin|FPGA_BUS_D7_Pin 
-                          |AD2_CS_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, W26Q16_CS_Pin|RFUNIT_RCLK_Pin|RFUNIT_CLK_Pin|RFUNIT_DATA_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, W26Q16_CS_Pin|W25Q16_SCK_Pin|W25Q16_MISO_Pin|W25Q16_MOSI_Pin 
+                          |RFUNIT_RCLK_Pin|RFUNIT_CLK_Pin|RFUNIT_DATA_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, SD_CS_Pin|F_CS_Pin|WM8731_SCK_Pin|WM8731_SDA_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(AD1_CS_GPIO_Port, AD1_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : ENC_DT_Pin */
   GPIO_InitStruct.Pin = ENC_DT_Pin;
@@ -1042,20 +1069,23 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(ENC2_CLK_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : FPGA_CLK_Pin FPGA_SYNC_Pin */
-  GPIO_InitStruct.Pin = FPGA_CLK_Pin|FPGA_SYNC_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  /*Configure GPIO pins : PC0 PC1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : FPGA_BUS_D0_Pin FPGA_BUS_D1_Pin FPGA_BUS_D2_Pin FPGA_BUS_D3_Pin 
-                           FPGA_BUS_D4_Pin FPGA_BUS_D5_Pin FPGA_BUS_D6_Pin FPGA_BUS_D7_Pin */
-  GPIO_InitStruct.Pin = FPGA_BUS_D0_Pin|FPGA_BUS_D1_Pin|FPGA_BUS_D2_Pin|FPGA_BUS_D3_Pin 
-                          |FPGA_BUS_D4_Pin|FPGA_BUS_D5_Pin|FPGA_BUS_D6_Pin|FPGA_BUS_D7_Pin;
+  /*Configure GPIO pins : PA0 PA1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : BUS_COMM_SDA_Pin BUS_COMM_SCK_Pin */
+  GPIO_InitStruct.Pin = BUS_COMM_SDA_Pin|BUS_COMM_SCK_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PTT_IN_Pin */
@@ -1130,6 +1160,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : W25Q16_SCK_Pin W25Q16_MISO_Pin W25Q16_MOSI_Pin */
+  GPIO_InitStruct.Pin = W25Q16_SCK_Pin|W25Q16_MISO_Pin|W25Q16_MOSI_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : RFUNIT_RCLK_Pin RFUNIT_CLK_Pin RFUNIT_DATA_Pin */
   GPIO_InitStruct.Pin = RFUNIT_RCLK_Pin|RFUNIT_CLK_Pin|RFUNIT_DATA_Pin;

@@ -89,6 +89,7 @@ extern DMA_HandleTypeDef hdma_memtomem_dma2_stream5;
 extern DMA_HandleTypeDef hdma_memtomem_dma2_stream3;
 extern DMA_HandleTypeDef hdma_i2s3_ext_rx;
 extern DMA_HandleTypeDef hdma_spi3_tx;
+extern SPI_HandleTypeDef hspi1;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim6;
@@ -331,6 +332,21 @@ void TIM4_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles SPI1 global interrupt.
+  */
+void SPI1_IRQHandler(void)
+{
+  /* USER CODE BEGIN SPI1_IRQn 0 */
+
+  /* USER CODE END SPI1_IRQn 0 */
+  HAL_SPI_IRQHandler(&hspi1);
+  /* USER CODE BEGIN SPI1_IRQn 1 */
+	if(HAL_SPI_GetState(&hspi1)==HAL_SPI_STATE_READY)
+		FPGA_fpgadata_parse_iq_answer();
+  /* USER CODE END SPI1_IRQn 1 */
+}
+
+/**
   * @brief This function handles EXTI line[15:10] interrupts.
   */
 void EXTI15_10_IRQHandler(void)
@@ -341,8 +357,7 @@ void EXTI15_10_IRQHandler(void)
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
   /* USER CODE BEGIN EXTI15_10_IRQn 1 */
 	//StartProfilerUs();
-	if (!FPGA_busy) FPGA_fpgadata_iqclock();
-	if (!FPGA_busy) FPGA_fpgadata_stuffclock();
+	if(!FPGA_iq_busy) FPGA_fpgadata_do_iq_transfer();
 	//EndProfilerUs(true);
   /* USER CODE END EXTI15_10_IRQn 1 */
 }
@@ -426,6 +441,21 @@ void TIM6_DAC_IRQHandler(void)
 
 		if(!TRX_SNMP_Synced) //Sync time from internet
 			WIFI_GetSNMPTime();
+		
+		/*
+		sendToDebug_uint8(SPI_Bus_Buffer_RX_copy[0],false);
+		sendToDebug_uint8(SPI_Bus_Buffer_RX_copy[1],false);
+		sendToDebug_uint8(SPI_Bus_Buffer_RX_copy[2],false);
+		sendToDebug_uint8(SPI_Bus_Buffer_RX_copy[3],false);
+		sendToDebug_uint8(SPI_Bus_Buffer_RX_copy[4],false);
+		sendToDebug_uint8(SPI_Bus_Buffer_RX_copy[5],false);
+		sendToDebug_uint8(SPI_Bus_Buffer_RX_copy[6],false);
+		sendToDebug_uint8(SPI_Bus_Buffer_RX_copy[7],false);
+		sendToDebug_uint8(HAL_SPI_GetState(&hspi1),false);
+		sendToDebug_newline();
+		*/
+		//if(HAL_SPI_GetState(&hspi1)==HAL_SPI_STATE_BUSY_TX_RX) HAL_SPI_Abort_IT(&hspi1);
+		if(!FPGA_comm_busy) FPGA_fpgadata_stuffclock();
 		
 #if 0
 		//Save Debug variables

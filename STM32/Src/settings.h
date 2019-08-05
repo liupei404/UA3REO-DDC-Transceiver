@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "arm_math.h"
 #include "bands.h"
+#include "wire.h"
 
 #define ADCDAC_CLOCK 49152000 //Частота генератора АЦП/ЦАП
 #define MAX_FREQ_HZ 750000000 //Максимальная частота приёма (из даташита АЦП)
@@ -132,6 +133,8 @@ extern struct TRX_SETTINGS {
 
 volatile extern bool NeedSaveSettings;
 extern SPI_HandleTypeDef hspi1;
+extern const I2C_DEVICE I2C_WM8731;
+extern const I2C_DEVICE I2C_FPGA;
 
 extern void LoadSettings(void);
 extern void SaveSettings(void);

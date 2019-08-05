@@ -8,6 +8,11 @@
 #include "fpga.h"
 #include "main.h"
 #include "bands.h"
+#include "wire.h"
+
+//I2C Settings
+const I2C_DEVICE I2C_WM8731 = { WM8731_SCK_GPIO_Port, WM8731_SCK_Pin, WM8731_SDA_GPIO_Port, WM8731_SDA_Pin };
+const I2C_DEVICE I2C_FPGA = { BUS_COMM_SCK_GPIO_Port, BUS_COMM_SCK_Pin, BUS_COMM_SDA_GPIO_Port, BUS_COMM_SDA_Pin };
 
 //W25Q16
 static uint8_t Write_Enable = W25Q16_COMMAND_Write_Enable;
@@ -121,6 +126,7 @@ void SaveSettings(void)
 
 static void Flash_Sector_Erase(void)
 {
+	return;
 	for(uint8_t page=0; page<=(sizeof(TRX)/0xFF); page++)
 	{
 		Address[1] = page;
@@ -138,6 +144,7 @@ static void Flash_Sector_Erase(void)
 
 static void Flash_Write_Data(void)
 {
+	return;
 	for(uint8_t page=0; page<=(sizeof(TRX)/0xFF); page++)
 	{
 		HAL_GPIO_WritePin(W26Q16_CS_GPIO_Port, W26Q16_CS_Pin, GPIO_PIN_RESET);     // CS to low
@@ -159,6 +166,7 @@ static void Flash_Write_Data(void)
 
 static void Flash_Read_Data(void)
 {
+	return;
 	for(uint8_t page=0; page<=(sizeof(TRX)/0xFF); page++)
 	{
 		Address[1] = page;
